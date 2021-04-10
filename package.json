@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "mongodb": "^3.5.9",
+    "mongodb-client-encryption": "^1.2.3",
     "next": "latest",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"

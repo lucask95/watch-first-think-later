@@ -1,7 +1,10 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Home({ reviews }) {
+  const router = useRouter();
+  const { pageNum } = router.query;
   return (
     <div className="container">
       <Head>
@@ -37,11 +40,11 @@ export default function Home({ reviews }) {
             justifyContent: "space-between",
           }}
         >
-          <Link href="/reviews/0">
+          <Link href={`/reviews/${parseInt(pageNum) - 1}`}>
             <a>Previous Page</a>
           </Link>
 
-          <Link href="/reviews/1">
+          <Link href={`/reviews/${parseInt(pageNum) + 1}`}>
             <a>Next Page</a>
           </Link>
         </div>
@@ -200,8 +203,9 @@ export default function Home({ reviews }) {
   );
 }
 
-export async function getServerSideProps() {
-  const res = await fetch("http://localhost:3000/api/reviews/page/0");
+export async function getServerSideProps(context) {
+  const { pageNum } = context.query;
+  const res = await fetch(`http://localhost:3000/api/reviews/page/${pageNum}`);
   const data = await res.json();
   return {
     props: { reviews: JSON.parse(JSON.stringify(data)) },
