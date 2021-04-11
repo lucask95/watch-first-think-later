@@ -1,40 +1,20 @@
-import {
-  Button,
-  Card,
-  CardContent,
-  Container,
-  Grid,
-  Typography,
-} from "@material-ui/core";
-import Head from "next/head";
+import { Button, Grid } from "@material-ui/core";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Layout from "../../components/Layout";
+import ReviewCard from "../../components/ReviewCard";
 
 export default function Home({ reviews }) {
   const router = useRouter();
   const { pageNum } = router.query;
+  const prevDisabled = parseInt(pageNum) === 0;
 
   return (
     <Layout>
       <Grid container spacing={3}>
         {reviews?.map((review) => (
-          <Grid item xs={4}>
-            <Card key={review._id}>
-              <CardContent>
-                <Typography variant="h6">{review.name} &rarr;</Typography>
-                <Typography
-                  variant="p"
-                  style={{
-                    maxHeight: 300,
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  }}
-                >
-                  {review.body}
-                </Typography>
-              </CardContent>
-            </Card>
+          <Grid item xs={4} key={review._id}>
+            <ReviewCard review={review} />
           </Grid>
         ))}
       </Grid>
@@ -45,19 +25,27 @@ export default function Home({ reviews }) {
           flexDirection: "row",
           width: "100%",
           justifyContent: "space-between",
+          padding: "16px 0 0",
         }}
       >
-        <Link
-          href={`/reviews/${parseInt(pageNum) - 1}`}
-          disabled={pageNum === 0}
-        >
-          <Button variant="contained" color="primary">
+        <Link href={`/reviews/${parseInt(pageNum) - 1}`}>
+          <Button
+            variant="contained"
+            style={{
+              backgroundColor: prevDisabled ? "gray" : "#EF8354",
+              color: "white",
+            }}
+            disabled={prevDisabled}
+          >
             Previous Page
           </Button>
         </Link>
 
-        <Link href={`/reviews/${parseInt(pageNum) + 1}`}>
-          <Button variant="contained" color="primary">
+        <Link href={`/reviews/${parseInt(pageNum) - 1}`}>
+          <Button
+            variant="contained"
+            style={{ backgroundColor: "#EF8354", color: "white" }}
+          >
             Next Page
           </Button>
         </Link>
