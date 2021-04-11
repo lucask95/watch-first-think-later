@@ -14,7 +14,9 @@ export default function Layout({ titleAddition, children }) {
 
       <Header />
 
-      <main style={{ padding: 20 }}>{children}</main>
+      <main style={{ padding: 20, backgroundColor: "#4F5D75" }}>
+        {children}
+      </main>
     </>
   );
 }
