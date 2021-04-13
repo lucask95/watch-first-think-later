@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Layout from "../../components/Layout";
 import ReviewCard from "../../components/ReviewCard";
+import appConstants from "../../util/constants";
 
 export default function Home({ reviews }) {
   const router = useRouter();
@@ -30,9 +31,9 @@ export default function Home({ reviews }) {
       >
         <Link href={`/reviews/${parseInt(pageNum) - 1}`}>
           <Button
-            variant="contained"
+            variant='contained'
             style={{
-              backgroundColor: prevDisabled ? "gray" : "#EF8354",
+              backgroundColor: prevDisabled ? "gray" : appConstants.accentColor,
               color: "white",
             }}
             disabled={prevDisabled}
@@ -41,10 +42,13 @@ export default function Home({ reviews }) {
           </Button>
         </Link>
 
-        <Link href={`/reviews/${parseInt(pageNum) - 1}`}>
+        <Link href={`/reviews/${parseInt(pageNum) + 1}`}>
           <Button
-            variant="contained"
-            style={{ backgroundColor: "#EF8354", color: "white" }}
+            variant='contained'
+            style={{
+              backgroundColor: appConstants.accentColor,
+              color: "white",
+            }}
           >
             Next Page
           </Button>
