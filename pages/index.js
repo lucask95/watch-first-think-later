@@ -1,7 +1,6 @@
 import { Card, Typography } from "@material-ui/core";
 import Head from "next/head";
 import Link from "next/link";
-import Button from "../components/Button";
 
 export default function Home({ reviews }) {
   return (
