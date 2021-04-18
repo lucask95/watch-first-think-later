@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
 import { connectToDatabase } from "../../../util/mongodb";
+import bcrypt from "bcrypt";
 
 const options = {
   providers: [
@@ -9,29 +10,19 @@ const options = {
         username: {
           label: "Username",
           type: "text",
-          placeholder: "lucas",
         },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
         const { username, password } = credentials;
         const { db } = await connectToDatabase();
-        const dbUser = db.collection("users").findOne({ username: username });
+        const dbUser = await db
+          .collection("users")
+          .findOne({ username: username });
+        if (!dbUser) return null;
         const parsedDbUser = JSON.parse(JSON.stringify(dbUser));
-
-        const user = {
-          username: "TestUser",
-          password: "ip123bp4na;sdklfh",
-          email: "testuser@test.test",
-          isAdmin: "true",
-          parsedDbUser,
-        };
-
-        if (user) {
-          return user;
-        } else {
-          return null;
-        }
+        const match = bcrypt.compareSync(password, parsedDbUser?.password);
+        return match ? parsedDbUser : null;
       },
     }),
   ],
