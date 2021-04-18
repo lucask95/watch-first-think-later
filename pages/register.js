@@ -1,9 +1,10 @@
-import { Box, Button, TextField, Typography } from "@material-ui/core";
+import { Button, TextField, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import Layout from "../components/Layout";
 import userModel from "../models/UserModel";
 import Link from "next/link";
+import { useSession } from "next-auth/client";
+import { useRouter } from "next/router";
 
 export default function register() {
   const [formErrors, setFormErrors] = useState({});
@@ -12,6 +13,8 @@ export default function register() {
   const [email, setEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [session, loading] = useSession();
+  const router = useRouter();
 
   const submitRegister = async (e) => {
     e.preventDefault();
@@ -55,6 +58,20 @@ export default function register() {
 
     setFormErrors(errors);
   }, [username, password, email]);
+
+  if (session) {
+    setTimeout(() => {
+      router.push("/");
+    }, 5000);
+    return (
+      <Layout>
+        <div style={{ padding: 20, borderRadius: 5, backgroundColor: "white" }}>
+          <Typography variant='h5'>Register</Typography>
+          <Typography>You are already logged in. Redirecting.</Typography>
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
