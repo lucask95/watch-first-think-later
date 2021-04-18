@@ -1,0 +1,16 @@
+GET https://localhost:3000/api/reviews/page/1 HTTP/1.1
+
+###
+
+GET https://localhost:3000/api/users HTTP/1.1
+
+###
+
+POST https://localhost:3000/api/users HTTP/1.1
+content-type: application/json
+
+{
+  "username": "testuser1",
+  "password": "Password1!",
+  "email": "lucas@test.test"
+}

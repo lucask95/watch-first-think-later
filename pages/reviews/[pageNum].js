@@ -60,7 +60,7 @@ export default function Home({ reviews }) {
 
 export async function getServerSideProps(context) {
   const { pageNum } = context.query;
-  const res = await fetch(`http://localhost:3000/api/reviews/page/${pageNum}`);
+  const res = await fetch(`https://localhost:3000/api/reviews/page/${pageNum}`);
   const data = await res.json();
   return {
     props: { reviews: JSON.parse(JSON.stringify(data)) },
