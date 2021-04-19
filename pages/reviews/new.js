@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import reviewModel from "../../models/ReviewModel";
 import appConstants from "../../util/constants";
+import { useRouter } from "next/router";
 
 export default function Home() {
   const [session, loading] = useSession();
@@ -13,6 +14,7 @@ export default function Home() {
   const [rating, setRating] = useState("");
   const [body, setBody] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const router = useRouter();
 
   const submitReview = async (e) => {
     e.preventDefault();
@@ -41,7 +43,7 @@ export default function Home() {
         body: JSON.stringify(newReview),
       });
       const response = await res.json();
-      if (response.ok) setSuccess(true);
+      if (response.ok) router.push(`/review/${response.insertedId}`);
     } catch (error) {
       console.error(error);
       setSubmitting(false);

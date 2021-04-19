@@ -6,8 +6,8 @@ export default async (req, res) => {
 
     if (req.method === "POST") {
       // insert review into the database
-      const creationRes = await db.collection("reviews").insertOne(req.body);
-      res.status(200).json(creationRes);
+      const response = await db.collection("reviews").insertOne(req.body);
+      res.status(200).json(response);
     } else if (req.method === "GET") {
       // get all reviews from the database
       const reviews = await db
