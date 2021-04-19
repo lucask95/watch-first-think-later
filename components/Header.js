@@ -1,5 +1,7 @@
-import { Link, Typography } from "@material-ui/core";
+import { Button, Link, Typography } from "@material-ui/core";
 import appConstants from "../util/constants";
+import AddIcon from "@material-ui/icons/Add";
+import { useSession } from "next-auth/client";
 
 function NavLink({ href, children }) {
   return (
@@ -12,6 +14,8 @@ function NavLink({ href, children }) {
 }
 
 export default function Header() {
+  const [session, loading] = useSession();
+
   return (
     <header
       style={{
@@ -46,6 +50,30 @@ export default function Header() {
             <NavLink href='/'>Home</NavLink>
             <NavLink href='/reviews/0'>Reviews</NavLink>
             <NavLink href='/about/'>About</NavLink>
+            <NavLink href={session ? "/reviews/new" : "/api/auth/signin"}>
+              {session ? (
+                <Button
+                  variant='contained'
+                  startIcon={<AddIcon />}
+                  style={{
+                    backgroundColor: appConstants.accentColor,
+                    color: "white",
+                  }}
+                >
+                  Add A Review
+                </Button>
+              ) : (
+                <Button
+                  variant='contained'
+                  style={{
+                    backgroundColor: appConstants.accentColor,
+                    color: "white",
+                  }}
+                >
+                  Sign In
+                </Button>
+              )}
+            </NavLink>
           </ul>
         </nav>
       </div>

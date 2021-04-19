@@ -5,8 +5,6 @@ import { signIn, signOut, useSession } from "next-auth/client";
 export default function Home() {
   const [session, loading] = useSession();
 
-  console.log("session:", session);
-
   return (
     <Layout titleAddition='Bite-sized film reviews'>
       <Box

@@ -5,6 +5,7 @@ import userModel from "../models/UserModel";
 import Link from "next/link";
 import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
+import appConstants from "../util/constants";
 
 export default function register() {
   const [formErrors, setFormErrors] = useState({});
@@ -74,8 +75,8 @@ export default function register() {
   }
 
   return (
-    <Layout>
-      <div style={{ padding: 20, borderRadius: 5, backgroundColor: "white" }}>
+    <Layout titleAddition='Register'>
+      <div style={appConstants.contentArea}>
         <Typography variant='h5'>Register</Typography>
         {success ? (
           <div style={{ padding: 20 }}>
