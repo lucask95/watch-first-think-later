@@ -12,9 +12,9 @@ export default function Home({ reviews }) {
 
   return (
     <Layout>
-      <Grid container spacing={3}>
+      <Grid container spacing={4} style={{ padding: "20px 100px" }}>
         {reviews?.map((review) => (
-          <Grid item xs={4} key={review._id}>
+          <Grid item xs={6} key={review._id}>
             <ReviewCard review={review} />
           </Grid>
         ))}

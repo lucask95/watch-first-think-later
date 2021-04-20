@@ -2,6 +2,8 @@ import { Typography } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
 import React from "react";
 import Layout from "../../components/Layout";
+import ReviewInfo from "../../components/review/ReviewInfo";
+import ReviewRating from "../../components/review/ReviewRating";
 import appConstants from "../../util/constants";
 
 export default function Home({ review }) {
@@ -12,15 +14,13 @@ export default function Home({ review }) {
           variant='h5'
           gutterBottom
         >{`${review.name} — Film Review`}</Typography>
-        <div style={{ marginBottom: 10 }}>
-          <Typography variant='caption' gutterBottom>
-            {review.date}
+        <ReviewInfo user={review.user} date={review.date} />
+        <ReviewRating rating={review.rating} />
+        {review.body.split("\n").map((part, index) => (
+          <Typography key={index} variant='body2' gutterBottom>
+            {part}
           </Typography>
-        </div>
-        <div style={{ marginBottom: 10 }}>
-          <Rating value={review.rating} precision={0.5} readOnly />
-        </div>
-        <Typography variant='body2'>{review.body}</Typography>
+        ))}
       </div>
     </Layout>
   );
