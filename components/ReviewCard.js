@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   card: {
     boxSizing: "border-box",
     border: "1px solid white",
-    transition: "border .15s, color .15s",
+    transition: "border .1s, color .1s",
     "&:hover": {
       border: `1px solid ${appConstants.accentColor}`,
       color: appConstants.accentColor,
