@@ -19,6 +19,12 @@ mkcert localhost 127.0.0.1
 > npm run devhttps
 ```
 
+Note: You might need to manually separately install the `mongodb` node package for some reason.
+
+```
+> npm install mongodb
+```
+
 TODO:
 
 - [ ] Home Page
