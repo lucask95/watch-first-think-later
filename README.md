@@ -18,3 +18,12 @@ mkcert localhost 127.0.0.1
 > $env:NODE_EXTRA_CA_CERTS="C:\Users\Lucas\AppData\Local\mkcert\rootCA.pem"
 > npm run devhttps
 ```
+
+TODO:
+
+- [ ] Home Page
+- [ ] About Page
+- [ ] Search
+- [ ] Filter
+- [ ] User profiles
+- [ ] Review images

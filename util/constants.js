@@ -6,6 +6,10 @@ const appConstants = {
     borderRadius: 5,
     padding: 20,
   },
+  DATE: "date",
+  YEAR: "year",
+  RATING: "rating",
+  TITLE: "title",
 };
 
 export default appConstants;
