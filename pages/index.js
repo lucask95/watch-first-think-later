@@ -4,6 +4,7 @@ import { signIn, signOut, useSession } from "next-auth/client";
 import Link from "next/link";
 import ContentArea from "../components/ContentArea";
 import ReviewInfo from "../components/review/ReviewInfo";
+import ReviewCard from "../components/ReviewCard";
 
 const useStyles = makeStyles({
   scoreCircle: {
@@ -25,6 +26,13 @@ const useStyles = makeStyles({
   reviewText: {
     marginTop: 15,
   },
+  textLink: {
+    color: "white",
+    textDecoration: "none",
+    "&:hover": {
+      textDecoration: "underline",
+    },
+  },
 });
 
 export default function Home({ reviews }) {
@@ -32,6 +40,7 @@ export default function Home({ reviews }) {
 
   const classes = useStyles();
   const latestReview = reviews?.[0];
+  const nextThreeReviews = reviews?.slice(1, 4);
 
   const getBackgroundColor = (score) => {
     if (score === 0) return "#828282";
@@ -86,7 +95,26 @@ export default function Home({ reviews }) {
       </ContentArea>
 
       {/* Latest Video */}
+
       {/* The next 3 reviews */}
+      <Grid container spacing={3} style={{ marginTop: 15 }}>
+        {nextThreeReviews.map((review) => (
+          <Grid item xs={4}>
+            <ReviewCard review={review} />
+          </Grid>
+        ))}
+      </Grid>
+
+      <div
+        style={{ display: "flex", justifyContent: "flex-end", marginTop: 15 }}
+      >
+        <Link href='/reviews/0'>
+          <a className={classes.textLink}>
+            <Typography>Read the rest of the reviews &rarr;</Typography>
+          </a>
+        </Link>
+      </div>
+
       {/* <Typography variant='h5' gutterBottom>
           Hi, I'm Lucas.
         </Typography>
