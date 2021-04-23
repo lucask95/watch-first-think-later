@@ -31,14 +31,15 @@ const options = {
     // maxAge in seconds
     maxAge: 24 * 60 * 60,
   },
+  jwt: {
+    secret: process.env.JWT_SECRET,
+  },
   callbacks: {
     async jwt(token, user, account, profile, isNewUser) {
-      // console.log({ token, user, account, profile, isNewUser });
       if (user) token.user = user;
       return token;
     },
     async session(session, token) {
-      // console.log({ session, token });
       session.user = token.user;
       return session;
     },
