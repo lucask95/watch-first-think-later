@@ -71,7 +71,7 @@ export default function Home({ reviews }) {
             style={{ backgroundColor: getBackgroundColor(latestReview.rating) }}
           >
             <Typography variant='h2' className={classes.scoreText}>
-              {latestReview.rating === 0 ? "?" : latestReview.rating}
+              {latestReview.rating < 1 ? "?" : latestReview.rating}
             </Typography>
             <Typography
               style={{
@@ -119,7 +119,7 @@ export default function Home({ reviews }) {
 }
 
 export async function getServerSideProps(context) {
-  const res = await fetch(`https://localhost:3000/api/reviews/page/0`);
+  const res = await fetch(`https://localhost:3000/api/reviews/page/1`);
   const data = await res.json();
   return {
     props: { reviews: JSON.parse(JSON.stringify(data)) },

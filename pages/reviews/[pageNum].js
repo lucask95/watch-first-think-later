@@ -17,6 +17,7 @@ import ReviewCard from "../../components/ReviewCard";
 import appConstants from "../../util/constants";
 import SearchIcon from "@material-ui/icons/Search";
 import { useEffect, useState } from "react";
+import { ArrowDownward, ArrowUpward } from "@material-ui/icons";
 
 const useStyles = makeStyles({
   searchButton: {
@@ -27,37 +28,21 @@ const useStyles = makeStyles({
   },
 });
 
-const ASC = 0;
-const DESC = 1;
-const sortArray = [-1, 1];
-
 export default function Home({ reviews }) {
   const router = useRouter();
   const { pageNum } = router.query;
   const prevDisabled = parseInt(pageNum) === 1;
   const [sortValue, setSortValue] = useState(appConstants.DATE);
-  const [sortOrder, setSortOrder] = useState(ASC);
-  const [sortedReviews, setSortedReviews] = useState(reviews);
+  const [sortOrder, setSortOrder] = useState(appConstants.DESC);
+
+  const toggleSortOrder = () => {
+    setSortOrder(
+      sortOrder === appConstants.ASC ? appConstants.DESC : appConstants.ASC
+    );
+  };
 
   useEffect(() => {
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
-    let sorted = reviews.sort((el1, el2) => {
-      switch (sortValue) {
-        case appConstants.DATE:
-          const d1 = Date.parse(el1.date);
-          const d2 = Date.parse(el2.date);
-          if (d1 > d2) return 1;
-          if (d1 < d2) return -1;
-          break;
-
-        default:
-          return 0;
-          break;
-      }
-      return 0;
-    });
-    if (sortOrder === DESC) sorted = sorted.reverse();
-    setSortedReviews(sorted);
+    router.push(`/reviews/${pageNum}?sort=${sortValue}&order=${sortOrder}`);
   }, [sortValue, sortOrder]);
 
   return (
@@ -97,11 +82,18 @@ export default function Home({ reviews }) {
               <MenuItem value={appConstants.YEAR}>Film Year</MenuItem>
             </Select>
           </FormControl>
+          <IconButton style={{ marginLeft: 15 }} onClick={toggleSortOrder}>
+            {sortOrder === appConstants.ASC ? (
+              <ArrowUpward style={{ color: "white" }} />
+            ) : (
+              <ArrowDownward style={{ color: "white" }} />
+            )}
+          </IconButton>
 
           <Divider
             orientation='vertical'
             flexItem
-            style={{ margin: "0 10px 0 20px" }}
+            style={{ margin: "0 10px" }}
           />
 
           {/* Search */}
@@ -137,7 +129,11 @@ export default function Home({ reviews }) {
           padding: "16px 0 0",
         }}
       >
-        <Link href={`/reviews/${parseInt(pageNum) - 1}`}>
+        <Link
+          href={`/reviews/${
+            parseInt(pageNum) - 1
+          }?sort=${sortValue}&order=${sortOrder}`}
+        >
           <Button
             variant='contained'
             style={{
@@ -150,7 +146,11 @@ export default function Home({ reviews }) {
           </Button>
         </Link>
 
-        <Link href={`/reviews/${parseInt(pageNum) + 1}`}>
+        <Link
+          href={`/reviews/${
+            parseInt(pageNum) + 1
+          }?sort=${sortValue}&order=${sortOrder}`}
+        >
           <Button
             variant='contained'
             style={{
@@ -167,8 +167,12 @@ export default function Home({ reviews }) {
 }
 
 export async function getServerSideProps(context) {
-  const { pageNum } = context.query;
-  const res = await fetch(`https://localhost:3000/api/reviews/page/${pageNum}`);
+  const { pageNum, sort, order } = context.query;
+  const res = await fetch(
+    `https://localhost:3000/api/reviews/page/${pageNum}?sort=${
+      sort ?? appConstants.DATE
+    }&order=${order ?? appConstants.DESC}`
+  );
   const data = await res.json();
   return {
     props: { reviews: JSON.parse(JSON.stringify(data)) },

@@ -9,7 +9,9 @@ const appConstants = {
   DATE: "date",
   YEAR: "year",
   RATING: "rating",
-  TITLE: "title",
+  TITLE: "name",
+  ASC: "asc",
+  DESC: "desc",
 };
 
 export default appConstants;

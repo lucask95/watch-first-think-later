@@ -3,14 +3,19 @@ import { connectToDatabase } from "../../../../util/mongodb";
 
 export default async (req, res) => {
   const { db } = await connectToDatabase();
-  const { pageNum } = req.query;
+  const { pageNum, sort, order } = req.query;
+
+  let orderCatch = order ?? appConstants.DESC;
+  let sortValue = sort ?? appConstants.DATE;
+
+  const orderInt = orderCatch === appConstants.DESC ? -1 : 1;
   const page = pageNum - 1;
 
   try {
     const reviews = await db
       .collection("reviews")
       .find({})
-      .sort({ date: -1 })
+      .sort({ [sortValue]: orderInt })
       .skip(appConstants.pageSize * page)
       .limit(appConstants.pageSize)
       .toArray();
