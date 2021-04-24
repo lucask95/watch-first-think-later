@@ -108,7 +108,7 @@ export default function Home({ reviews }) {
       <div
         style={{ display: "flex", justifyContent: "flex-end", marginTop: 15 }}
       >
-        <Link href='/reviews/0'>
+        <Link href='/reviews/1'>
           <a className={classes.textLink}>
             <Typography>Read the rest of the reviews &rarr;</Typography>
           </a>

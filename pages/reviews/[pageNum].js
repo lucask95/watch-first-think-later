@@ -34,7 +34,7 @@ const sortArray = [-1, 1];
 export default function Home({ reviews }) {
   const router = useRouter();
   const { pageNum } = router.query;
-  const prevDisabled = parseInt(pageNum) === 0;
+  const prevDisabled = parseInt(pageNum) === 1;
   const [sortValue, setSortValue] = useState(appConstants.DATE);
   const [sortOrder, setSortOrder] = useState(ASC);
   const [sortedReviews, setSortedReviews] = useState(reviews);

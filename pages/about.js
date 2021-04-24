@@ -153,7 +153,7 @@ export default function about() {
         <div
           style={{ display: "flex", justifyContent: "flex-end", marginTop: 15 }}
         >
-          <Link href='/reviews/0'>
+          <Link href='/reviews/1'>
             <a className={classes.textLink}>
               <Typography>Read more reviews &rarr;</Typography>
             </a>
