@@ -139,11 +139,13 @@ export default function about() {
                   <Typography variant='h6' gutterBottom>
                     {film.name}
                   </Typography>
-                  {film.description.split("*newparagraph*").map((paragraph) => (
-                    <Typography variant='body2' gutterBottom>
-                      {paragraph}
-                    </Typography>
-                  ))}
+                  {film.description
+                    .split("*newparagraph*")
+                    .map((paragraph, index) => (
+                      <Typography key={index} variant='body2' gutterBottom>
+                        {paragraph}
+                      </Typography>
+                    ))}
                 </CardContent>
               </Card>
             </Grid>
@@ -153,10 +155,8 @@ export default function about() {
         <div
           style={{ display: "flex", justifyContent: "flex-end", marginTop: 15 }}
         >
-          <Link href='/reviews/1'>
-            <a className={classes.textLink}>
-              <Typography>Read more reviews &rarr;</Typography>
-            </a>
+          <Link href='/reviews/1' className={classes.textLink}>
+            <Typography>Read more reviews &rarr;</Typography>
           </Link>
         </div>
       </ContentArea>
