@@ -5,6 +5,7 @@ import Layout from "../../components/Layout";
 import reviewModel from "../../models/ReviewModel";
 import appConstants from "../../util/constants";
 import { useRouter } from "next/router";
+import server from "../../config";
 
 export default function Home() {
   const [session, loading] = useSession();
@@ -35,7 +36,7 @@ export default function Home() {
     };
 
     try {
-      const res = await fetch("https://localhost:3000/api/reviews", {
+      const res = await fetch(`${server}/api/reviews`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -5,6 +5,7 @@ import Link from "next/link";
 import ContentArea from "../components/ContentArea";
 import ReviewInfo from "../components/review/ReviewInfo";
 import ReviewCard from "../components/ReviewCard";
+import server from "../config";
 
 const useStyles = makeStyles({
   scoreCircle: {
@@ -119,7 +120,7 @@ export default function Home({ reviews }) {
 }
 
 export async function getServerSideProps(context) {
-  const res = await fetch(`https://localhost:3000/api/reviews/page/1`);
+  const res = await fetch(`${server}/api/reviews/page/1`);
   const data = await res.json();
   return {
     props: { reviews: JSON.parse(JSON.stringify(data)) },

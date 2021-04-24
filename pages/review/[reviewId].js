@@ -4,6 +4,7 @@ import React from "react";
 import Layout from "../../components/Layout";
 import ReviewInfo from "../../components/review/ReviewInfo";
 import ReviewRating from "../../components/review/ReviewRating";
+import server from "../../config";
 import appConstants from "../../util/constants";
 
 export default function Home({ review }) {
@@ -28,7 +29,7 @@ export default function Home({ review }) {
 
 export async function getServerSideProps(context) {
   const { reviewId } = context.query;
-  const res = await fetch(`https://localhost:3000/api/reviews/${reviewId}`);
+  const res = await fetch(`${server}/api/reviews/${reviewId}`);
   const data = await res.json();
   return {
     props: { review: JSON.parse(JSON.stringify(data)) },

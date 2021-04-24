@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import appConstants from "../util/constants";
+import server from "../config";
 
 export default function register() {
   const [formErrors, setFormErrors] = useState({});
@@ -25,7 +26,7 @@ export default function register() {
     newUser = { ...newUser, username, password, email };
 
     try {
-      const res = await fetch("https://localhost:3000/api/users", {
+      const res = await fetch(`${server}/api/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

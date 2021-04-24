@@ -18,6 +18,7 @@ import appConstants from "../../util/constants";
 import SearchIcon from "@material-ui/icons/Search";
 import { useEffect, useState } from "react";
 import { ArrowDownward, ArrowUpward } from "@material-ui/icons";
+import server from "../../config";
 
 const useStyles = makeStyles({
   searchButton: {
@@ -169,7 +170,7 @@ export default function Home({ reviews }) {
 export async function getServerSideProps(context) {
   const { pageNum, sort, order } = context.query;
   const res = await fetch(
-    `https://localhost:3000/api/reviews/page/${pageNum}?sort=${
+    `${server}/api/reviews/page/${pageNum}?sort=${
       sort ?? appConstants.DATE
     }&order=${order ?? appConstants.DESC}`
   );
