@@ -27,9 +27,9 @@ Note: You might need to manually separately install the `mongodb` node package f
 
 TODO:
 
-- [ ] Home Page
-- [ ] About Page
+- [x] Home Page
+- [x] About Page
 - [ ] Search
-- [ ] Filter
+- [x] Filter
 - [ ] User profiles
 - [ ] Review images
