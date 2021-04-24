@@ -90,14 +90,14 @@ export default function Home({ reviews }) {
             )}
           </IconButton>
 
-          <Divider
+          {/* <Divider
             orientation='vertical'
             flexItem
             style={{ margin: "0 10px" }}
-          />
+          /> */}
 
           {/* Search */}
-          <Grid item>
+          {/* <Grid item>
             <TextField
               variant='outlined'
               margin='dense'
@@ -109,7 +109,7 @@ export default function Home({ reviews }) {
             <IconButton>
               <SearchIcon style={{ color: "white" }} />
             </IconButton>
-          </Grid>
+          </Grid> */}
         </Grid>
 
         {/* Reviews */}
