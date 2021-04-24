@@ -114,20 +114,6 @@ export default function Home({ reviews }) {
           </a>
         </Link>
       </div>
-
-      {/* <Typography variant='h5' gutterBottom>
-          Hi, I'm Lucas.
-        </Typography>
-        <Typography variant='body1'>
-          I'm a film enthusiast who writes quick reviews for the modern
-          media-consuming millenial with a short attention span. Watch First,
-          Think Later is a personal project of mine aiming to catalog my reviews
-          as well as some short-form video content that I hope to create in the
-          near future.
-        </Typography>
-        <Typography>
-          Take a look at the <Link href="/reviews/page/0">Reviews page</Link> to see a list of films I've watched and reviewed recently
-        </Typography> */}
     </Layout>
   );
 }
