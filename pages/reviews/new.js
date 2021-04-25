@@ -6,13 +6,14 @@ import reviewModel from "../../models/ReviewModel";
 import appConstants from "../../util/constants";
 import { useRouter } from "next/router";
 import server from "../../config";
+import { Rating } from "@material-ui/lab";
 
 export default function Home() {
   const [session, loading] = useSession();
   const [formErrors, setFormErrors] = useState({});
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
-  const [rating, setRating] = useState("");
+  const [rating, setRating] = useState(-1);
   const [body, setBody] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
@@ -29,7 +30,7 @@ export default function Home() {
       ...newReview,
       name: title,
       year,
-      rating: rating / 2,
+      rating: rating,
       body,
       date,
       user,
@@ -107,19 +108,13 @@ export default function Home() {
                 marginBottom: 20,
               }}
             >
-              <TextField
-                label='Rating'
-                type='number'
+              <Rating
+                name='film-rating'
+                precision={0.5}
                 value={rating}
-                onChange={(e) => {
-                  const newVal = parseInt(e.target.value);
-                  if (
-                    e.target.value.length < 1 ||
-                    (newVal >= 1 && newVal <= 10)
-                  )
-                    setRating(e.target.value);
+                onChange={(e, newValue) => {
+                  setRating(newValue);
                 }}
-                disabled={submitting}
               />
             </div>
             <div
