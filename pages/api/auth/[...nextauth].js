@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
 import { connectToDatabase } from "../../../util/mongodb";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 const options = {
   providers: [
