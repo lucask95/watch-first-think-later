@@ -27,6 +27,7 @@ Note: You might need to manually separately install the `mongodb` node package f
 
 TODO:
 
+- [ ] Responsive
 - [x] Home Page
 - [x] About Page
 - [ ] Search
