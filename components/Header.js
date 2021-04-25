@@ -1,4 +1,4 @@
-import { Button, Link, Typography } from "@material-ui/core";
+import { Avatar, Button, Link, Typography } from "@material-ui/core";
 import appConstants from "../util/constants";
 import AddIcon from "@material-ui/icons/Add";
 import { useSession } from "next-auth/client";
@@ -48,7 +48,7 @@ export default function Header() {
         <nav>
           <ul>
             <NavLink href='/'>Home</NavLink>
-            <NavLink href='/reviews/0'>Reviews</NavLink>
+            <NavLink href='/reviews/1'>Reviews</NavLink>
             <NavLink href='/about/'>About</NavLink>
             <NavLink href={session ? "/reviews/new" : "/api/auth/signin"}>
               {session ? (
@@ -74,6 +74,22 @@ export default function Header() {
                 </Button>
               )}
             </NavLink>
+            {/* <NavLink
+              href={
+                session
+                  ? `/profile/${session.user.username}`
+                  : "/api/auth/signin"
+              }
+            >
+              {session ? (
+                <Avatar
+                  alt={session.user.username}
+                  style={{ display: "inline-flex" }}
+                />
+              ) : (
+                <Avatar alt='?' />
+              )}
+            </NavLink> */}
           </ul>
         </nav>
       </div>
