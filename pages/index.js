@@ -86,8 +86,8 @@ export default function Home({ reviews }) {
             </Typography>
           </Grid>
           <Grid item className={classes.reviewText}>
-            {latestReview.body.split("\n").map((paragraph) => (
-              <Typography variant='body1' gutterBottom>
+            {latestReview.body.split("\n").map((paragraph, index) => (
+              <Typography key={index} variant='body1' gutterBottom>
                 {paragraph}
               </Typography>
             ))}
