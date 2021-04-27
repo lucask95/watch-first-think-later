@@ -2,7 +2,6 @@ import {
   Button,
   Divider,
   FormControl,
-  Grid,
   IconButton,
   makeStyles,
   MenuItem,
@@ -19,6 +18,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { useEffect, useState } from "react";
 import { ArrowDownward, ArrowUpward } from "@material-ui/icons";
 import server from "../../config";
+import { Box, Center, Flex, Grid, GridItem } from "@chakra-ui/layout";
 
 const useStyles = makeStyles({
   searchButton: {
@@ -28,6 +28,44 @@ const useStyles = makeStyles({
     },
   },
 });
+
+function OrderSelect({ sortValue, setSortValue, sortOrder, toggleSortOrder }) {
+  return (
+    <Flex direction='row' alignItems='center' w='min-content'>
+      <Typography
+        style={{ marginRight: 7, color: "white", whiteSpace: "nowrap" }}
+      >
+        Sort by
+      </Typography>
+      <FormControl
+        variant='outlined'
+        margin='dense'
+        style={{
+          backgroundColor: "white",
+          borderRadius: 5,
+          width: 200,
+        }}
+      >
+        <Select
+          value={sortValue}
+          onChange={(e) => setSortValue(e.target.value)}
+        >
+          <MenuItem value={appConstants.DATE}>Date Reviewed</MenuItem>
+          <MenuItem value={appConstants.RATING}>Rating</MenuItem>
+          <MenuItem value={appConstants.TITLE}>Title</MenuItem>
+          <MenuItem value={appConstants.YEAR}>Film Year</MenuItem>
+        </Select>
+      </FormControl>
+      <IconButton onClick={toggleSortOrder}>
+        {sortOrder === appConstants.ASC ? (
+          <ArrowUpward style={{ color: "white" }} />
+        ) : (
+          <ArrowDownward style={{ color: "white" }} />
+        )}
+      </IconButton>
+    </Flex>
+  );
+}
 
 export default function Home({ reviews }) {
   const router = useRouter();
@@ -48,88 +86,27 @@ export default function Home({ reviews }) {
 
   return (
     <Layout>
-      <Grid container spacing={4} style={{ padding: "20px 100px" }}>
-        <Grid
-          container
-          item
-          spacing={2}
-          xs={12}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "flex-end",
-          }}
-        >
-          {/* Sort by */}
-          <Typography style={{ marginRight: 7, color: "white" }}>
-            Sort by
-          </Typography>
-          <FormControl
-            variant='outlined'
-            margin='dense'
-            style={{
-              backgroundColor: "white",
-              borderRadius: 5,
-              width: 200,
-            }}
-          >
-            <Select
-              value={sortValue}
-              onChange={(e) => setSortValue(e.target.value)}
-            >
-              <MenuItem value={appConstants.DATE}>Date Reviewed</MenuItem>
-              <MenuItem value={appConstants.RATING}>Rating</MenuItem>
-              <MenuItem value={appConstants.TITLE}>Title</MenuItem>
-              <MenuItem value={appConstants.YEAR}>Film Year</MenuItem>
-            </Select>
-          </FormControl>
-          <IconButton style={{ marginLeft: 15 }} onClick={toggleSortOrder}>
-            {sortOrder === appConstants.ASC ? (
-              <ArrowUpward style={{ color: "white" }} />
-            ) : (
-              <ArrowDownward style={{ color: "white" }} />
-            )}
-          </IconButton>
+      <Flex justify='flex-end' maxW='1200px' mx='auto' mb='20px'>
+        <OrderSelect
+          sortValue={sortValue}
+          setSortValue={setSortValue}
+          sortOrder={sortOrder}
+          toggleSortOrder={toggleSortOrder}
+        />
+      </Flex>
 
-          {/* <Divider
-            orientation='vertical'
-            flexItem
-            style={{ margin: "0 10px" }}
-          /> */}
-
-          {/* Search */}
-          {/* <Grid item>
-            <TextField
-              variant='outlined'
-              margin='dense'
-              placeholder='Search for a film'
-              style={{ backgroundColor: "white", borderRadius: 5 }}
-            />
-          </Grid>
-          <Grid item>
-            <IconButton>
-              <SearchIcon style={{ color: "white" }} />
-            </IconButton>
-          </Grid> */}
-        </Grid>
-
-        {/* Reviews */}
+      <Grid
+        templateColumns={{ sm: "1fr", lg: "1fr 1fr" }}
+        gap={{ sm: "20px", lg: "30px" }}
+        maxW='1200px'
+        m='auto'
+      >
         {reviews?.map((review) => (
-          <Grid item xs={6} key={review._id}>
-            <ReviewCard review={review} />
-          </Grid>
-        ))}
+          <ReviewCard review={review} />
+        ))}{" "}
       </Grid>
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          width: "100%",
-          justifyContent: "space-between",
-          padding: "16px 0 0",
-        }}
-      >
+      <Flex justify='space-between' maxW='1200px' mx='auto' mt='20px'>
         <Link
           href={`/reviews/${
             parseInt(pageNum) - 1
@@ -162,7 +139,7 @@ export default function Home({ reviews }) {
             Next Page
           </Button>
         </Link>
-      </div>
+      </Flex>
     </Layout>
   );
 }
