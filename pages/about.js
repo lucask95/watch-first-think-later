@@ -1,8 +1,8 @@
+import { Grid } from "@chakra-ui/layout";
 import {
   Card,
   CardContent,
   CardMedia,
-  Grid,
   Link,
   makeStyles,
   Typography,
@@ -130,25 +130,27 @@ export default function about() {
           Some of My Favorite Films
         </Typography>
 
-        <Grid container spacing={4} style={{ padding: 10 }}>
+        <Grid
+          p='10px'
+          gap='30px'
+          templateColumns={{ base: "1fr", lg: "1fr 1fr", xl: "1fr 1fr 1fr" }}
+        >
           {favoriteFilms.map((film) => (
-            <Grid item xs={4} key={film.name}>
-              <Card>
-                <CardMedia style={{ height: 200 }} image={film.imageUrl} />
-                <CardContent>
-                  <Typography variant='h6' gutterBottom>
-                    {film.name}
-                  </Typography>
-                  {film.description
-                    .split("*newparagraph*")
-                    .map((paragraph, index) => (
-                      <Typography key={index} variant='body2' gutterBottom>
-                        {paragraph}
-                      </Typography>
-                    ))}
-                </CardContent>
-              </Card>
-            </Grid>
+            <Card key={film.name}>
+              <CardMedia style={{ height: 200 }} image={film.imageUrl} />
+              <CardContent>
+                <Typography variant='h6' gutterBottom>
+                  {film.name}
+                </Typography>
+                {film.description
+                  .split("*newparagraph*")
+                  .map((paragraph, index) => (
+                    <Typography key={index} variant='body2' gutterBottom>
+                      {paragraph}
+                    </Typography>
+                  ))}
+              </CardContent>
+            </Card>
           ))}
         </Grid>
 
