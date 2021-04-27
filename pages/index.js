@@ -1,4 +1,4 @@
-import { Box, Button, Grid, makeStyles, Typography } from "@material-ui/core";
+import { Button, makeStyles, Typography } from "@material-ui/core";
 import Layout from "../components/Layout";
 import { signIn, signOut, useSession } from "next-auth/client";
 import Link from "next/link";
@@ -6,6 +6,7 @@ import ContentArea from "../components/ContentArea";
 import ReviewInfo from "../components/review/ReviewInfo";
 import ReviewCard from "../components/ReviewCard";
 import server from "../config";
+import { Box, Flex, Grid, GridItem } from "@chakra-ui/layout";
 
 const useStyles = makeStyles({
   scoreCircle: {
@@ -15,7 +16,6 @@ const useStyles = makeStyles({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 999,
-    backgroundColor: "green",
     margin: "15px 30px 15px 0",
   },
   scoreText: {
@@ -62,14 +62,14 @@ export default function Home({ reviews }) {
         <Typography variant='h5'>
           Latest Review — {latestReview.name}
         </Typography>
+
         <ReviewInfo date={latestReview.date} user={latestReview.user} />
-        <div
-          style={{ display: "grid", gridTemplateColumns: "min-content 1fr" }}
-        >
-          <Grid
-            item
+
+        <Flex direction={{ base: "column", md: "row" }} align='center'>
+          <Box
             className={classes.scoreCircle}
-            style={{ backgroundColor: getBackgroundColor(latestReview.rating) }}
+            bgColor={getBackgroundColor(latestReview.rating)}
+            minW='150px'
           >
             <Typography variant='h2' className={classes.scoreText}>
               {latestReview.rating < 1 ? "?" : latestReview.rating}
@@ -84,25 +84,29 @@ export default function Home({ reviews }) {
             >
               / 5
             </Typography>
-          </Grid>
-          <Grid item className={classes.reviewText}>
+          </Box>
+
+          <Box>
             {latestReview.body.split("\n").map((paragraph, index) => (
               <Typography key={index} variant='body1' gutterBottom>
                 {paragraph}
               </Typography>
             ))}
-          </Grid>
-        </div>
+          </Box>
+        </Flex>
       </ContentArea>
 
       {/* Latest Video */}
+      {/* Someday */}
 
       {/* The next 3 reviews */}
-      <Grid container spacing={3} style={{ marginTop: 15 }}>
+      <Grid
+        gap='20px'
+        templateColumns={{ base: "1fr", lg: "1fr 1fr 1fr" }}
+        mt='20px'
+      >
         {nextThreeReviews.map((review) => (
-          <Grid item xs={4}>
-            <ReviewCard review={review} />
-          </Grid>
+          <ReviewCard review={review} key={review._id} />
         ))}
       </Grid>
 
