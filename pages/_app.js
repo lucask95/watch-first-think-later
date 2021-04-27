@@ -4,6 +4,7 @@ import { Provider } from "next-auth/client";
 import { useEffect } from "react";
 import theme from "../util/theme";
 import { ThemeProvider } from "styled-components";
+import { ChakraProvider } from "@chakra-ui/react";
 
 // This default export is required in a new `pages/_app.js` file.
 export default function MyApp({ Component, pageProps }) {
@@ -17,9 +18,11 @@ export default function MyApp({ Component, pageProps }) {
 
   return (
     <Provider session={pageProps.session}>
-      <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <ChakraProvider>
+        <ThemeProvider theme={theme}>
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </ChakraProvider>
     </Provider>
   );
 }

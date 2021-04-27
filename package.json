@@ -1,5 +1,5 @@
 {
-  "name": "with-mongodb",
+  "name": "watch-first-think-later",
   "version": "0.1.0",
   "scripts": {
     "dev": "next dev",
@@ -8,10 +8,14 @@
     "start": "next start"
   },
   "dependencies": {
+    "@chakra-ui/react": "^1.6.0",
+    "@emotion/react": "^11.1.5",
+    "@emotion/styled": "^11.3.0",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "*",
     "bcryptjs": "^2.4.3",
+    "framer-motion": "^4.1.10",
     "mongodb": "^3.6.6",
     "mongodb-client-encryption": "^1.2.3",
     "next": "latest",
