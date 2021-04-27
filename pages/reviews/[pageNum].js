@@ -96,8 +96,8 @@ export default function Home({ reviews }) {
       </Flex>
 
       <Grid
-        templateColumns={{ sm: "1fr", lg: "1fr 1fr" }}
-        gap={{ sm: "20px", lg: "30px" }}
+        templateColumns={{ base: "1fr", lg: "1fr 1fr" }}
+        gap={{ base: "20px", lg: "30px" }}
         maxW='1200px'
         m='auto'
       >
