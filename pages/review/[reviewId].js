@@ -1,5 +1,5 @@
-import { Typography } from "@material-ui/core";
-import { Rating } from "@material-ui/lab";
+import { Flex } from "@chakra-ui/layout";
+import { Link, makeStyles, Typography } from "@material-ui/core";
 import React from "react";
 import Layout from "../../components/Layout";
 import ReviewInfo from "../../components/review/ReviewInfo";
@@ -7,7 +7,21 @@ import ReviewRating from "../../components/review/ReviewRating";
 import server from "../../config";
 import appConstants from "../../util/constants";
 
+const useStyles = makeStyles({
+  textLink: {
+    color: "white",
+    textDecoration: "none",
+    transition: "color .10s",
+    "&:hover": {
+      textDecoration: "underline",
+      color: appConstants.accentColor,
+    },
+  },
+});
+
 export default function Home({ review }) {
+  const classes = useStyles();
+
   return (
     <Layout titleAddition={`${review.name} - Film Review`}>
       <div style={appConstants.contentArea}>
@@ -23,6 +37,12 @@ export default function Home({ review }) {
           </Typography>
         ))}
       </div>
+
+      <Flex justify='flex-end' mt='15px'>
+        <Link href='/reviews/1' className={classes.textLink}>
+          <Typography>Read more reviews &rarr;</Typography>
+        </Link>
+      </Flex>
     </Layout>
   );
 }
