@@ -2,6 +2,7 @@ import { Avatar, Button, Link, Typography } from "@material-ui/core";
 import appConstants from "../util/constants";
 import AddIcon from "@material-ui/icons/Add";
 import { useSession } from "next-auth/client";
+import { Box, Flex } from "@chakra-ui/layout";
 
 function NavLink({ href, children }) {
   return (
@@ -17,19 +18,21 @@ export default function Header() {
   const [session, loading] = useSession();
 
   return (
-    <header
-      style={{
-        padding: 20,
-        backgroundColor: "#2D3142",
-        color: "white",
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}
+    <Flex
+      bgColor='#2D3142'
+      color='white'
+      p='20px'
+      direction={{ base: "column", lg: "row" }}
+      justify={{ base: "center", lg: "space-between" }}
+      align='center'
     >
       {/* Logo */}
-      <div>
+      <Flex
+        px='20px'
+        direction='column'
+        align={{ base: "center", lg: "flex-start" }}
+        textAlign={{ base: "center", lg: "left" }}
+      >
         <Typography
           variant='h3'
           style={{
@@ -41,10 +44,10 @@ export default function Header() {
           Watch First Think Later
         </Typography>
         <Typography variant='subtitle1'>Bite-sized film reviews</Typography>
-      </div>
+      </Flex>
 
       {/* Nav menu */}
-      <div>
+      <Box mt={{ base: "20px", lg: "0" }}>
         <nav>
           <ul>
             <NavLink href='/'>Home</NavLink>
@@ -92,7 +95,7 @@ export default function Header() {
             </NavLink> */}
           </ul>
         </nav>
-      </div>
-    </header>
+      </Box>
+    </Flex>
   );
 }
